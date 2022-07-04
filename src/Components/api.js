@@ -1,7 +1,7 @@
 export async function login(email, password) {
   return await fetch("http://localhost:5000/users/login", {
     method: "POST",
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify(email, password),
     headers: { "Content-Type": "application/json" },
   })
     .then((response) => {
@@ -69,8 +69,8 @@ export async function addMovie(title, img, synopsis, rating, year) {
       img,
       synopsis,
       rating,
-      year
-    })
+      year,
+    }),
   })
     .then((response) => {
       // If request is not successful, display error message
@@ -96,8 +96,8 @@ export async function editMovie(title, img, synopsis, rating, year) {
       img,
       synopsis,
       rating,
-      year
-    })
+      year,
+    }),
   })
     .then((response) => {
       // If request is not successful, display error message
