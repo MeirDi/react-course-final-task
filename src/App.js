@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import {useEffect, useState } from "react";
+import MoviesList from "./Components/MoviesList";
+import Login from "./Components/login";
 
 function App() {
+  const [isUserSignedIn, setIsUserSignedIn] = useState(false);
+  useEffect(() => {
+    if (localStorage.getItem("token")) setIsUserSignedIn(true);
+    else setIsUserSignedIn(false);
+  }, []);
+
+  const onLoginSuccessful = () => {
+    setIsUserSignedIn(true);
+  };
+
+  const onLogout = () => {
+    localStorage.removeItem("name");
+    localStorage.removeItem("token");
+    setIsUserSignedIn(false);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     { !isUserSignedIn?
+        <Login onLoginSuccessful={onLoginSuccessful}/>
+      :
+        <MoviesList />
+    }
     </div>
   );
 }
